@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Node.js CORS</title>
+</head>
+<body>
+<button id="get">Cross domain request - Get</button>
+<button id="post">Cross domain request - Post</button>
+<button id="invalid">Invalid cross domain request</button>
+</body>
+<script>
+  let get = document.querySelector('#get');
+  let post = document.querySelector('#post');
+  let invalid = document.querySelector('#invalid');
+  get.onclick = function () {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:8080/cross-domain', true);
+    xhr.send(null);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        alert(xhr.responseText);
+      }
+    }
+  };
+
+  post.onclick = function () {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:8080/cross-domain', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Authorization', 'Authorization');
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        alert(xhr.responseText);
+      }
+    };
+    xhr.send('message=This request is Form "localhost:8081".');
+  };
+
+  invalid.onclick = function () {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:8080/', true);
+    xhr.send(null);
+  };
+</script>
+</html>

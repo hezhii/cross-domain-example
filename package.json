@@ -1,0 +1,12 @@
+{
+  "name": "cross-domin-example",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node app.js & node cross-domain-server.js"
+  },
+  "author": "He Zhou",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4"
+  }
+}
